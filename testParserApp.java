@@ -4,21 +4,32 @@
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 
 public class testParserApp {
+    static String source="";
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        
-        System.out.println("Insira uma linha para análise (ou pressione Enter para sair):");
-        
-        while (true) {
-            System.out.print("> ");
-            String input = scanner.nextLine();
-            
-            if (input.trim().isEmpty()) {
-                System.out.println("Encerrando o programa.");
-                break;
+         try {
+            source="";
+            File myObj = new File("my.lang");
+            Scanner myReader = new Scanner(myObj);
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                source=source+data+"\n";
             }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
+
+           String input = source;
+            
+            
 
             try {
                 // Cria um CharStream a partir da entrada do usuário
@@ -47,7 +58,5 @@ public class testParserApp {
             }
         }
         
-        scanner.close();
-    }
-}
+ }
 
